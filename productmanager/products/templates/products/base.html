@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Список товаров</h1>
+    <a href="{% url 'add_product' %}">Добавить новый товар</a>
+    <ul>
+        {% for product in products %}
+            <li>{{ product.name }} - {{ product.price }} 
+             <a href="{% url 'edit_product' product.id %}">Редактировать</a> 
+             <a href="{% url 'delete_product' product.id %}">Удалить</a></li>
+        {% endfor %}
+    </ul>
+
+
+    <body>
+     <h1>Добавить продукт</h1>
+     <form method="post">
+         {% csrf_token %}
+         {{ form.as_p }}
+         <button type="submit">Сохранить</button>
+     </form>
+     <a href="{% url 'product_list' %}">Назад к списку продуктов</a>
+
+     <h1>Редактировать продукт: {{ product.name }}</h1>
+     <form method="post">
+         {% csrf_token %}
+         {{ form.as_p }}
+         <button type="submit">Сохранить изменения</button>
+     </form>
+     <a href="{% url 'product_list' %}">Назад к списку продуктов</a>
+</body>
+</html>
